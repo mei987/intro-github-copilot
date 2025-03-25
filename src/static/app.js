@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div class="participants-section">
+            <p><strong>Participants:</strong></p>
+            <ul class="participants-list">
+              ${details.participants.length > 0 
+                ? details.participants.map(participant => `<li>${participant}</li>`).join("")
+                : "<li>No participants yet</li>"}
+            </ul>
+          </div>
         `;
 
         activitiesList.appendChild(activityCard);
@@ -40,6 +48,28 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error fetching activities:", error);
     }
   }
+
+  // Add some styling for the participants section
+  const style = document.createElement("style");
+  style.textContent = `
+    .participants-section {
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+    }
+    .participants-list {
+      margin: 5px 0 0 15px;
+      padding: 0;
+      list-style-type: disc;
+    }
+    .participants-list li {
+      margin-bottom: 5px;
+      font-size: 14px;
+      color: #555;
+    }
+  `;
+  document.head.appendChild(style);
 
   // Handle form submission
   signupForm.addEventListener("submit", async (event) => {
